@@ -1,0 +1,80 @@
+graphviz.txt
+
+================================================================================
+CONTENTS                                                       *graphviz-contents*
+
+1. Graphviz.vim............................................|graphviz-graphviz.vim|
+    1.1. Requirement........................................|graphviz-requirement|
+    1.2. Installation......................................|graphviz-installation|
+    1.3. Usage....................................................|graphviz-usage|
+    1.4. Customization....................................|graphviz-customization|
+
+================================================================================
+GRAPHVIZ.VIM                                               *graphviz-graphviz.vim*
+
+An almost completely-rewritten fork of wmgraphviz.vim (https://github.com/wannesm/wmgraphviz.vim).
+
+*   Less commands.
+*   Simpler configuration.
+
+--------------------------------------------------------------------------------
+REQUIREMENT                                                 *graphviz-requirement*
+
+*   Graphviz (http://www.graphviz.org/)
+
+--------------------------------------------------------------------------------
+INSTALLATION                                               *graphviz-installation*
+
+Using vim-plug (https://github.com/junegunn/vim-plug):
+>
+    Plug 'liuchengxu/graphviz.vim'
+<
+
+--------------------------------------------------------------------------------
+USAGE                                                             *graphviz-usage*
+
+Open the output file whose filename is based on the current filename with `.format` appended.
+>
+    " `.format` is 'pdf' by default.
+    " Option: 'ps', 'pdf', 'png', 'jpg', 'gif', 'svg'
+    :Graphviz
+
+    " Open the generated png file
+    :Graphviz png
+<
+
+`:Graphviz!` is same with `:Graphviz`, but compile first if the output file does not exist.
+>
+    " Open the generated png file, try compiling if the target does not exist.
+    " Options are same with `:GraphvizCompile`.
+    :Graphviz! png
+<
+
+Compile the graph in the same directory as the current source dot-file.
+>
+    " :GraphvizCompile [exe] [format]
+    " By default:
+    " :GraphvizCompile dot pdf
+    :GraphvizCompile
+
+    " Specify the output format
+    :GraphvizCompile png
+
+    " Specify the exe and format
+    :GraphvizCompile dot gif
+<
+
+--------------------------------------------------------------------------------
+CUSTOMIZATION                                             *graphviz-customization*
+>
+    " How to open the generated output file.
+    " If does not exist, graphviz.vim will automatically choose the right way depending on the platform.
+    let g:graphviz_viewer = 'open'
+
+    " Default output format. Default is 'pdf'.
+    let g:graphviz_output_format = 'pdf'
+
+    " Options passed on to dot. Default is ''.
+    let g:graphviz_shell_option = ''
+<
+
