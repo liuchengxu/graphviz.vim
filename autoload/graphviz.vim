@@ -1,6 +1,9 @@
 let s:format = get(g:, 'graphviz_output_format', 'pdf')
 let s:shell_option = get(g:, 'graphviz_shell_option', '')
 
+" http://www.graphviz.org/doc/info/output.html
+let s:supported = ['ps', 'pdf', 'png', 'jpg', 'gif', 'svg']
+
 let s:is_mac = has('mac')
 let s:is_win = has('win32')
 let s:is_unix = has('unix')
@@ -59,12 +62,10 @@ function! s:parse_option(...) abort
     let exe = 'dot'
 
     if num == 1
-      " http://www.graphviz.org/doc/info/output.html
-      let supported = ['ps', 'pdf', 'png', 'jpg', 'gif', 'svg']
-      if index(supported, a:1) >= 0
+      if index(s:supported, a:1) >= 0
         let format = a:1
       else
-        call s:err("Invalid option. Acceptable: ". string(supported))
+        call s:err("Invalid option. Acceptable: ". string(s:supported))
         return [v:null, v:null]
       endif
     else
@@ -157,4 +158,13 @@ function! graphviz#show(bang, ...) abort
   let s:output_fname = a:0 == 0 ? s:ofile('pdf') : s:ofile(a:1)
 
   call s:show()
+endfunction
+
+function! graphviz#Graphviz(...) abort
+  return join(s:supported, "\n")
+endfunction
+
+function! graphviz#GraphvizCompile(...) abort
+  let cmd = ['dot', 'neato', 'fdp', 'sfdp', 'twopi', 'circo']
+  return join(cmd + s:supported, "\n")
 endfunction

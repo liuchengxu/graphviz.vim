@@ -2,7 +2,7 @@ function! coc#source#dot#init() abort
   " options of current source
   return {
         \ 'shortcut': 'DOT',
-        \ 'priority': 10,
+        \ 'priority': 9,
         \ 'filetypes': ['dot'],
         \ }
 endfunction
