@@ -2,7 +2,7 @@ let s:format = get(g:, 'graphviz_output_format', 'pdf')
 let s:shell_option = get(g:, 'graphviz_shell_option', '')
 
 " http://www.graphviz.org/doc/info/output.html
-let s:supported = ['ps', 'pdf', 'png', 'jpg', 'gif', 'svg']
+let s:supported = ['eps', 'ps', 'pdf', 'png', 'jpg', 'gif', 'svg']
 
 let s:is_mac = has('mac')
 let s:is_win = has('win32')
