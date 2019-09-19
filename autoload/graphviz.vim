@@ -87,6 +87,29 @@ function! s:full_path_curfname() abort
   return shellescape(expand('%:p'))
 endfunction
 
+function! s:err(msg) abort
+  echohl ErrorMsg
+  echom '[graphviz.vim] '.a:msg
+  echohl NONE
+endfunction
+
+function! s:show() abort
+
+  if !filereadable(get(s:, 'output_fname', v:null))
+    return s:err('No output file. Please compile first.')
+  endif
+
+  let open = get(g:, 'graphviz_viewer', s:viewer.open())
+  if !s:executable(open)
+    return
+  endif
+
+  let cmd = s:is_win ? open.' /b %:p:.:r.'.s:format :
+        \ open.' '.shellescape(s:output_fname)
+
+  call s:system(cmd)
+endfunction
+
 function! graphviz#compile(...) abort
 
   let [exe, output_format] = call(function('s:parse_option'), a:000)
@@ -119,33 +142,14 @@ function! graphviz#compile(...) abort
 
 endfunction
 
-function! s:err(msg) abort
-  echohl ErrorMsg
-  echo a:msg
-  echohl NONE
-endfunction
-
-function! s:show() abort
-
-  if !filereadable(get(s:, 'output_fname', v:null))
-    return s:err('No output file. Please compile first.')
-  endif
-
-  let open = get(g:, 'graphviz_viewer', s:viewer.open())
-  if !s:executable(open)
-    return
-  endif
-
-  let cmd = s:is_win ? open.' /b %:p:.:r.'.s:format :
-        \ open.' '.shellescape(s:output_fname)
-
-  call s:system(cmd)
-endfunction
-
 function! graphviz#show(bang, ...) abort
   if a:bang
-    if !filereadable(get(s:, 'output_fname', v:null))
-      call call(function('graphviz#compile'), a:000)
+    if a:000 == ['!']
+      call graphviz#compile()
+    else
+      if !filereadable(get(s:, 'output_fname', v:null))
+        call call(function('graphviz#compile'), a:000)
+      endif
     endif
     call s:show()
     return

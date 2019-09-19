@@ -39,6 +39,8 @@ Open the output file whose filename is based on the current filename with `.form
 :Graphviz! png
 ```
 
+`:Graphviz!!` is same with `:GraphvizCompile | Graphviz!`.
+
 Compile the graph in the same directory as the current source dot-file.
 
 ```vim
