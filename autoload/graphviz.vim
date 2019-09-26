@@ -69,7 +69,7 @@ function! s:parse_option(...) abort
         return [v:null, v:null]
       endif
     else
-      let format = 'pdf'
+      let format = s:format
     endif
   endif
 
