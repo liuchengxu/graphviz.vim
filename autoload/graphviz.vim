@@ -33,7 +33,7 @@ function! s:ofile(format) abort
 endfunction
 
 function! s:executable(exe) abort
-  if !executable(a:exe)
+  if !executable(a:exe) && a:exe != s:viewer.open()
     call s:err('Executable ['.a:exe.'] not found.')
     return v:false
   endif
@@ -104,7 +104,7 @@ function! s:show() abort
     return
   endif
 
-  let cmd = s:is_win ? open.' /b %:p:.:r.'.s:format :
+  let cmd = s:is_win ? open.' /b '.expand('%:p:.:r').'.'.s:format :
         \ open.' '.shellescape(s:output_fname)
 
   call s:system(cmd)
@@ -119,13 +119,13 @@ function! graphviz#compile(...) abort
   endif
 
   if s:is_win
-    let cmd = join([exe, '-T'.output_format, substitute(s:shell_option, ' ', '\\ ', 'g'), '% -o %:p:.:r.'.output_format])
+    let cmd = join([exe, '-T'.output_format, substitute(s:shell_option, ' ', '\\ ', 'g'), expand('%').' -o '.expand('%:p:.:r').'.'.output_format])
   else
     if exe == 'dot2tex'
       let dot2texoptions = get(g:, 'graphviz_dot2texoptions', '-tmath')
 
       if s:is_win
-        let cmd = join([exe, '-Txdot', s:shell_option, '% |', exe, dot2texoptions, '> %:p:.:r.tex'])
+        let cmd = join([exe, '-Txdot', s:shell_option, expand('%').' |', exe, dot2texoptions, '> '.expand('%:p:.:r').'.tex'])
       else
         let s:output_fname = s:output_format('tex')
         let cmd = join([exe, dot2texoptions, s:full_path_curfname(), '>', shellescape(s:output_fname)])
