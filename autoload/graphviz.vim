@@ -33,7 +33,7 @@ function! s:ofile(format) abort
 endfunction
 
 function! s:executable(exe) abort
-  if !executable(a:exe)
+  if !executable(a:exe) && a:exe != s:viewer.open()
     call s:err('Executable ['.a:exe.'] not found.')
     return v:false
   endif
