@@ -6,6 +6,8 @@ An almost completely-rewritten fork of [wmgraphviz.vim](https://github.com/wanne
 - Simpler configuration.
 - Add completion support for [ncm2](https://github.com/ncm2/ncm2) and [coc.nvim](https://github.com/neoclide/coc.nvim).
 
+Note: The command `:Graphviz` only exists when you open a `.gv` or `.dot` file.
+
 ## Requirement
 
 - [Graphviz](http://www.graphviz.org/)
