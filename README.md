@@ -14,10 +14,17 @@ Note: The command `:Graphviz` only exists when you open a `.gv` or `.dot` file.
 
 ## Installation
 
-Using [vim-plug](https://github.com/junegunn/vim-plug):
+- Using [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```vim
 Plug 'liuchengxu/graphviz.vim'
+```
+
+- Clone the repo into your vim config folder
+
+```bash
+mkdir -p ~/.vim/pack/vendor/start
+git clone https://github.com/liuchengxu/graphviz.vim ~/.vim/pack/vendor/start/graphviz.vim
 ```
 
 ## Usage
