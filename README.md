@@ -79,3 +79,7 @@ let g:graphviz_output_format = 'pdf'
 " Options passed on to dot. Default is ''.
 let g:graphviz_shell_option = ''
 ```
+
+## Related Projects
+
+- [dot-language-server](https://github.com/nikeee/dot-language-server)
