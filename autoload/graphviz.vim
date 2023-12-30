@@ -1,8 +1,12 @@
+" http://www.graphviz.org/doc/info/output.html
+if executable('dot')
+  let s:supported = split(split(system('dot -Tunknown'), ':')[-1])
+else
+  finish
+endif
+
 let s:format = get(g:, 'graphviz_output_format', 'pdf')
 let s:shell_option = get(g:, 'graphviz_shell_option', '')
-
-" http://www.graphviz.org/doc/info/output.html
-let s:supported = ['eps', 'ps', 'pdf', 'png', 'jpg', 'gif', 'svg']
 
 let s:is_mac = has('mac')
 let s:is_win = has('win32')
