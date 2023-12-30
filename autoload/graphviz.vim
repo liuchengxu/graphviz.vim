@@ -104,7 +104,7 @@ function! s:show() abort
   endif
 
   let open = get(g:, 'graphviz_viewer', s:viewer.open())
-  if !s:executable(open)
+  if !s:executable(split(open)[0])
     return
   endif
 
