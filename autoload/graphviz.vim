@@ -108,7 +108,7 @@ function! s:show() abort
     return
   endif
 
-  let cmd = s:is_win ? open.' /b '.expand('%:p:.:r').'.'.s:format :
+  let cmd = s:is_win ? open.' /b '.shellescape(expand('%:p:.:r').'.'.s:format) :
         \ open.' '.shellescape(s:output_fname)
 
   call s:system(cmd)
